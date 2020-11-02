@@ -1,0 +1,186 @@
+<style lang='scss'>
+
+</style>
+
+<template>
+    <view>
+        <block wx:if="{{collectStatus}}">
+            <repeat for="{{collectData}}" key="index" index="index" item="item">
+              <resume :item.sync="item"></resume>
+            </repeat>
+        </block>
+
+        <view class="no-collect-container" wx:else="{{collectStatus}}">
+            <image src="/images/icons/no_delivery.png"></image>
+            <view>{{warningWord}}</view>
+        </view>
+        <!--加载更多时动画-->
+        <bottomloadmore :syncShow.sync="showLoading" message="正在加载"></bottomloadmore>
+    </view>
+</template>
+
+<script>
+
+import wepy from 'wepy';
+import api from '../../api/api';
+import tip from '../../utils/tip';
+import utils from'../../utils/utils';
+import Resume from '../../components/resume';
+import BottomLoadMore from "../../components/bottomloadmore";
+
+export default class DeliveryPage extends wepy.page {
+    config = {
+        navigationBarTitleText: '已下载的简历',
+    }
+    data = {
+        _num: "1",
+        collectData: [],
+        warningWord:"",
+        collectStatus: false,
+        showLoading: false,
+        totalPage: 0,    //总数
+        currentPage: 1,
+        token:'',
+        tokenKey:''
+    }
+
+    components = {
+        bottomloadmore: BottomLoadMore,
+        resume:Resume
+    };
+
+    events={
+      togglecollect(id,resumeid){
+        console.log('接受参数',id,resumeid);
+        this.collectData = this.collectData.map(obj=>{
+          if(obj.resumeid == resumeid) obj.collectionid = id?id:''
+          return obj
+        })
+        this.$apply()
+      }
+    }
+
+    onLoad() {
+
+        // 获取登录信息
+        const that = this;
+        wx.getStorage({
+            key: 'loginData',
+            success: function(res) {
+                that.token = res.data.token;
+                that.tokenKey = res.data.tokenKey;
+                that.$apply();
+                // 获取已投递职位
+                that.getViewedlist(that.currentPage,true)
+            }
+        })
+
+    }
+
+    methods = {
+
+       // 点击切换投递状态
+        menuClick (e) {
+            this._num = e.target.dataset.num;
+            this.getCollectJob(this.token, this.tokenKey, this._num);
+        },
+        // 收藏
+        collectThis(resumeid,jobcollectionid) {
+            this.collectResume(resumeid,jobcollectionid);
+        },
+
+    };
+
+    async getViewedlist(currentPage,reset) {
+        wx.showLoading({
+            title: '加载中',
+        })
+        const that = this;
+        await api.getViewedlist({
+            query: {
+                head: {
+                    "transcode": "JZ00007",
+                    "type": "h"
+                },
+                data: {
+                    "token": that.token,
+                    "tokenKey": that.tokenKey,
+                    "page": currentPage
+                }
+            }
+        }).then(res=>{
+          wx.hideLoading()
+          const {returnCode,data} = res.data
+          if(returnCode=="AAAAAAA"){
+
+            var colleclist = data.viewedlist.map(obj=>{
+              obj.age=obj.age?utils.judge(obj.age,'岁'):'保密'
+              return obj
+            });
+            this.collectData = reset ? colleclist:that.collectData.concat(colleclist)
+          }
+          that.collectStatus = true;
+          that.$apply();
+
+          //that.totalPage =Math.ceil(res.data.num/ 10);
+          if(that.collectData.length==0){
+              that.collectStatus = false;
+              that.warningWord = "暂未查到更多信息";
+          }
+        }).catch(json=>{
+          wx.hideLoading()
+          that.collectStatus = false;
+          that.warningWord = json.data.returnMsg;
+          that.$apply();
+        })
+
+
+    }
+
+    async collectResume(resumeid, jobcollectionid) {
+        wx.showLoading({
+            title: '加载中',
+        })
+        const that = this;
+        await api.collectResume({
+            query: {
+                head: {
+                    "transcode": "H0018",
+                    "type": "h"
+                },
+                data: {
+                    "token": this.token,
+                    "tokenKey": this.tokenKey,
+                    "jobcollectionid": jobcollectionid || '',
+                    "resumeid": resumeid
+                }
+            }
+        }).catch(json=>{
+          tip.error( json.data.returnMsg)
+        })
+        that.$apply();
+        wx.hideLoading()
+
+    }
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom(event) {
+        let that = this;
+        that.showLoading = true;
+        //判断总页数是否大于翻页数
+        if ((that.totalPage) > that.currentPage) {
+            //防止重复加载
+            if (that.preventRepeatReuqest) {
+            return true;
+            }
+            that.preventRepeatReuqest = true;
+            that.currentPage++;
+            that.getCollectJob(that.currentPage,false);
+            that.preventRepeatReuqest = false;
+        } else {
+            that.showLoading = false;
+        }
+    }
+}
+</script>

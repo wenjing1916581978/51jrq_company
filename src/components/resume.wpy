@@ -1,0 +1,176 @@
+<style lang="scss">
+.flex{
+  display: flex;
+  overflow: hidden;
+}
+.align-center{
+  align-items: center;
+}
+.flex1{
+  flex: 1;
+  overflow: hidden;
+}
+.align-bottom{
+  align-items: flex-end;
+}
+.dot{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.resume{
+  padding-top:28rpx;
+  padding-bottom:28rpx;
+  margin-left:32rpx;
+  margin-right:32rpx;
+  position:relative;
+  border-bottom: 1rpx solid #f1f1f1;
+  &-head{
+    width: 72rpx;
+    height: 72rpx;
+    display: block;
+    margin-right: 20rpx;
+  }
+  .salary{
+    line-height: 40rpx;
+    color: #FF9E00;
+    font-size: 28rpx;
+  }
+  &-collect{
+    image{
+      width: 44rpx;
+      height: 42rpx;
+    }
+  }
+  .username{
+    font-size:32rpx;
+    color:#353535;
+    line-Height:44rpx;
+  }
+  &-attr{
+    line-height:34rpx;
+    margin-top:4rpx;
+    color:#a0a0a0;
+    font-size:24rpx;
+  }
+  .lastcompany{
+    font-size:24rpx;
+    color:#a0a0a0;
+    line-height:34rpx;
+    margin-top:12rpx;
+    margin-right:100rpx;
+  }
+  .expected{
+    margin-top:12rpx;
+    font-size:28rpx;
+    color:#656565;
+    line-height:40rpx;
+    margin-right:100rpx;
+  }
+}
+</style>
+<template>
+  <view class="resume">
+    <view class="flex" @tap="toJump" data-resumeid="{{item.resumeid}}" data-resource="{{item.resource}}">
+      <image class="resume-head" src="{{item.sex=='男'?'../../images/icons/touxiang_nan.png':'../../images/icons/touxiang_nv.png'}}"></image>
+      <view class="flex1">
+        <view class="flex">
+          <view class="flex1 username">{{item.username}}</view>
+          <view class="salary">{{item.expectsalarycode}}</view>
+        </view>
+
+        <view class="resume-attr">
+          <text>{{item.age}}</text>
+          <text wx:if="{{item.educationbg}}"> | {{item.educationbg}} </text>
+          <text wx:if="{{item.workyears}}"> | {{item.workyears}} </text>
+          <text wx:if="{{item.expectAreas}}"> | {{item.expectAreas}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="flex align-bottom">
+      <view class="flex1" @tap="toJump" data-resumeid="{{item.resumeid}}" data-resource="{{item.resource}}">
+        <view class="flex expected">
+          <view>求职意向：</view>
+          <text class="flex1 dot">{{item.expectPositions}}</text>
+        </view>
+        <view class="lastcompany dot">
+          <text>{{item.companynow}}</text>
+          <text wx:if="{{item.titlenow}}">- {{item.titlenow}}</text>
+          <text wx:if="{{!item.companynow&&!item.titlenow}}">无</text>
+        </view>
+      </view>
+      <view class="resume-collect" @tap="togglecollect" data-id="{{item.collectionid}}" data-resumeid="{{item.resumeid}}">
+        <image wx:if="{{item.collectionid}}" src="/images/icons/like_hl.png"></image>
+        <image wx:else src="/images/icons/like.png"></image>
+      </view>
+    </view>
+
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import api from '../api/api';
+  import {LOGIN_INFO} from '../utils/constants';
+  export default class Resume extends wepy.component {
+    props = {
+      item: {
+        type: Object,
+        default: {}
+      }
+    }
+
+    data = {
+    }
+
+
+    methods = {
+      togglecollect (e) {
+        const {id,resumeid} = e.currentTarget.dataset
+        console.log(resumeid,'ijsjhhjasjhhjfdsw',id);
+        this.operCollect(id,resumeid)
+      },
+      // 跳转到简历详情
+      toJump(e) {
+        const {resumeid,resource} = e.currentTarget.dataset
+        wx.navigateTo({
+         url: '/pages/personal/resume?resumeid='+resumeid+'&iscollection=1'+'&resource='+resource
+        })
+      },
+    }
+
+    //添加&&取消收藏
+    operCollect(id,resumeid) {
+      const that = this;
+      let obj = wx.getStorageSync(LOGIN_INFO) || null;
+      const {token,tokenKey} = obj
+      wx.showLoading({
+        mask:true,
+          title: '加载中',
+      })
+      api.collectResume({
+        query: {
+          head: {
+            "transcode": "H0018",
+            "type": "h"
+          },
+          data: {
+            "token": token,
+            "tokenKey": tokenKey,
+            "resumeid":resumeid,
+            "collectionid":id?id+'':'',
+            "resource":'1'
+          }
+        }
+      }).then(res=>{
+        wx.hideLoading()
+        const {returnCode,collectionid} = res.data
+        if(returnCode=="AAAAAAA") that.$emit('togglecollect',collectionid,resumeid)
+      }).catch(json=>{
+        wx.hideLoading()
+      })
+
+    }
+
+  }
+</script>

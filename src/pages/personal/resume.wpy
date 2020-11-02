@@ -1,0 +1,1025 @@
+<style lang='scss'>
+    page {
+      background: #F0F0F2;
+      padding-bottom:120rpx;
+    }
+    .head{
+      margin:0 auto 18rpx;
+      position:relative;
+      width:104rpx;
+      height:104rpx;
+      .gender{
+        position:absolute;
+        height:32rpx;
+        width:32rpx;
+        bottom:0;
+        right:0;
+        dispaly:block;
+      }
+      image{
+        width:104rpx;
+        height:104rpx;
+        border-radius:50%;
+        dispaly:block;
+      }
+      .headimg{
+        width:104rpx;
+        height:104rpx;
+        line-height:104rpx;
+        text-align:center;
+        border-radius:50%;
+        color:#ffffff;
+      }
+    }
+    .bg-woman{
+      background: linear-gradient(to right,#FF6A6A,#FF9191);
+    }
+    .bg-man{
+      background: linear-gradient(to right,#38A3DF,#74B9ED);
+    }
+    .username{
+      font-size:32rpx;
+      color:#5e5e5e;
+      line-height:44rpx;
+      text-align:center;
+    }
+    .lastcompany{
+      font-size:28rpx;
+      color:#A0A0A0;
+      line-height:40rpx;
+      padding-bottom:34rpx;
+      border-bottom:1rpx solid #F1F1F1;
+      text-align:center;
+      text{
+        &:not(:last-child){
+          &:after{
+            content:'|';
+            margin:0 8rpx;
+          }
+        }
+      }
+    }
+    .baseinfo{
+      padding:40rpx 28rpx 26rpx;
+      background:#ffffff;
+      margin-bottom:20rpx;
+    }
+    .line{
+      width:100%;
+      display:flex;
+      font-size:28rpx;
+      line-height:40rpx;
+      padding-top:22rpx;
+      .line-label{
+        color:#A0A0A0;
+      }
+      .line-content{
+        color:#333333;
+      }
+    }
+    .inline{
+      flex:1;
+    }
+    .resume-box{
+      background:#ffffff;
+      padding:0 28rpx 0;
+      margin-bottom:20rpx;
+      .title{
+        font-size:32rpx;
+        line-height:80rpx;
+        border-bottom:2rpx #F1F1F1 solid;
+
+      }
+      .content{
+        padding:18rpx 0;
+      }
+      .text{
+        line-height: 40rpx;
+        color: rgba(101, 101, 101, 1);
+        font-size: 28rpx;
+      }
+    }
+    .job-intention{
+      .intention{
+        line-height:32rpx;
+        font-size:28rpx;
+      }
+      .require{
+        margin-top:10rpx;
+        line-height:32rpx;
+        font-size:24rpx;
+        color:#A0A0A0;
+        text{
+          &:not(:first-child){
+            &:before{
+              content:'/';
+              padding:0 4rpx;
+            }
+          }
+        }
+      }
+    }
+    .text-yellow{
+      color:#FF9E00;
+      font-size:28rpx;
+      line-height:32rpx;
+      margin-bottom:12rpx;
+    }
+    .text-gray{
+      color:#A0A0A0;
+      font-size:24rpx;
+      line-height:32rpx;
+      margin-bottom:10rpx;
+    }
+    .education{
+        text{
+          &:not(:first-child){
+            &:before{
+              display:inline-block;
+              content:"|";
+              margin:0 8rpx;
+            }
+          }
+        }
+    }
+    .project:not(:last-child),.experience:not(:last-child){
+      border-bottom:2rpx solid #F1F1F1;
+      margin-bottom:20rpx;
+      .text{
+        padding-bottom:24rpx;
+
+
+      }
+    }
+    .bottom{
+      position:fixed;
+      background:#ffffff;
+      width:100%;
+      bottom:0;
+      border-top:2rpx solid #E1E1E1;
+    }
+    .bottom-opera{
+
+      display: flex;
+      display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+      display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+      display: -ms-flexbox;      /* TWEENER - IE 10 */
+      display: -webkit-flex;     /* NEW - Chrome */
+      .btn-collect{
+        margin:32rpx 40rpx 0;
+        height:52rpx;
+        width:52rpx;
+        image{
+          width:100%;
+          dispaly:block;
+        }
+      }
+      .btn-box{
+        margin:20rpx 32rpx 20rpx 0;
+        flex:1;
+        .contactway{
+          background: linear-gradient(to right,#FF9E00,#FFBD00);
+          height: 80rpx;
+          border-radius: 200rpx;
+          text-align:center;
+          line-height:80rpx;
+          font-size:32rpx;
+          color:#ffffff;
+          margin:0 auto;
+        }
+      }
+    }
+    .yellow{
+      color:#FF9E00!important;
+    }
+    .hide{
+      display:none!important;
+    }
+
+    .operabtnbox{
+      display: flex;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      view{
+        flex:1;
+        line-height: 80rpx;
+        height: 80rpx;
+        border-radius: 200px;
+        font-size:32rpx;
+        text-align:center;
+        box-sizing:border-box;
+        &:nth-child(2){
+          margin-left:9rpx;
+        }
+        &:nth-last-child(2){
+          margin-right:9rpx;
+        }
+        &.redblockbtn{
+          color:#FF6F6F;
+          border:2rpx solid #FF6F6F;
+
+        }
+        &.graybtn{
+          background: #D1D1D1;
+          background-color: rgba(209, 209, 209, 1);
+          color:#ffffff;
+        }
+        &.redbtn{
+          background: linear-gradient(to left,#FF8960,#FF62A5);
+          background-color: rgba(209, 209, 209, 1);
+          color:#ffffff;
+        }
+      }
+    }
+
+    .oldbtnbox{
+      display: flex;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      padding:20rpx 28rpx;
+      view{
+        flex:1;
+        text-align:center;
+        height:80rpx;
+        line-height:80rpx;
+        color:#ffffff!important;
+        border-radius:16rpx;
+        &:nth-child(2){
+          margin-left:20rpx;
+        }
+        &.o_yellow{
+          background:#FF9E00;
+        }
+        &.o_red{
+          background:#F16049;
+        }
+        &.o_gray{
+          background:#D1D1D1;
+        }
+      }
+    }
+
+</style>
+
+<template>
+  <block wx:if="{{resumeStatus}}">
+  <view wx:if="{{resource=='H0016'}}">
+      <view class="baseinfo">
+        <view class='head'>
+          <image mode="widthFix" src="{{resumebase.headimg}}" ></image>
+          <block >
+            <image class="gender" mode="widthFix" wx:if="{{resumebase.sex=='男'}}" src="../../images/icons/male.png" ></image>
+            <image class="gender" mode="widthFix" wx:else="{{resumebase.sex=='男'}}" src="../../images/icons/female.png" ></image>
+          </block>
+        </view>
+
+        <view class='username'>{{resumebase.username}}</view>
+        <view class="lastcompany">
+          <text wx:if="{{resumebase.companynow}}">{{resumebase.companynow}}</text>
+          <text wx:if="{{resumebase.titlenow}}">{{resumebase.titlenow}}</text>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">工作状态：</text>
+            <text class="line-content">{{resumebase.jobstatus}}</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">工作经验：</text>
+            <text class="line-content">{{resumebase.workyears}}</text>
+          </view>
+          <view class="inline">
+            <text class="line-label">所在城市：</text>
+            <text class="line-content">{{resumebase.livecityid}}</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">婚姻状况：</text>
+            <text class="line-content">{{resumebase.marital}}</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">手机：</text>
+            <text selectable="true" class="line-content {{islock==1?'yellow':''}}">{{phone}}</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">邮箱：</text>
+            <text selectable="true" class="line-content {{islock==1?'yellow':''}}">{{email}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 求职意向 -->
+      <view class="job-intention resume-box">
+        <view class="title">求职意向</view>
+        <view class="content">
+          <view class='intention'>
+            <text>{{resumebase.joblb}}</text>
+          </view>
+          <view class="require">
+            <text wx:if="{{resumebase.jobNature}}">{{resumebase.jobNature}}</text>
+            <text wx:if="{{resumebase.livecityid}}">{{resumebase.livecityid}}</text>
+            <text wx:if="{{resumebase.salary}}">{{resumebase.salary}}</text>
+            <text wx:if="{{resumebase.postsTime}}">{{resumebase.postsTime}}</text>
+          </view>
+        </view>
+
+      </view>
+      <!-- 自我评价 -->
+      <view class="self-assessment resume-box">
+        <view class="title">自我评价</view>
+        <view class='content'>
+          <view class="text">
+            <text decode="{{true}}">{{resumebase.selfRemark}}</text>
+
+          </view>
+        </view>
+      </view>
+      <!-- 工作经历 -->
+      <view class=" resume-box">
+        <view class="title">工作经历</view>
+        <view class='content' >
+          <repeat for="{{workdata}}" key="index" index="index" item="item" wx:if="{{workdata!=''}}">
+            <view class="experience">
+            <view class="text-gray">{{item.starttime}}-{{item.endtime}}</view>
+            <view class="text-yellow">{{item.corpname}}</view>
+            <view class="text-gray">{{item.postcode}}</view>
+            <view class="text">
+              <text decode="{{true}}">{{item.workremark}}</text>
+            </view>
+            </view>
+          </repeat>
+
+        </view>
+      </view>
+      <!-- 项目经验 -->
+      <view class="self-assessment resume-box">
+        <view class="title">项目经验</view>
+        <view class='content'>
+          <repeat for="{{prodata}}" key="index" index="index" item="item" wx:if="{{prodata!=0}}">
+            <view class="project">
+              <view class="text-yellow">{{item.projectname}}</view>
+              <view class="text-gray">{{item.starttime}}-{{item.endtime}}</view>
+              <view class="text">
+                <text decode="{{true}}">{{item.projectremark}}</text>
+              </view>
+            </view>
+          </repeat>
+        </view>
+      </view>
+      <!-- 教育经历 -->
+      <view class="self-assessment resume-box">
+        <view class="title">教育经历</view>
+        <view class='content'>
+          <repeat for="{{edudata}}" key="index" index="index" item="item" wx:if="{{edudata!=''}}">
+            <view class="project">
+              <view class="text-yellow">{{item.school}}</view>
+              <view class="text-gray">{{item.starttime}}-{{item.endtime}}</view>
+              <view class="text">{{item.specialtyid}}{{item.educationbg}}</view>
+            </view>
+          </repeat>
+        </view>
+      </view>
+      <!-- 证书 -->
+      <view class="self-assessment resume-box">
+        <view class="title">证书</view>
+        <view class='content'>
+
+        <repeat for="{{cerdata}}" key="index" index="index" item="item" wx:if="{{cerdata!=''}}">
+          <view class="project">
+            <view class="text-yellow">{{item.certname}}</view>
+            <view class="text-gray">{{item.gaintime}} 颁发</view>
+            <view class="text">颁发机构{{item.createby}}</view>
+          </view>
+        </repeat>
+        </view>
+      </view>
+
+  </view>
+  <view wx:if="{{resource!='H0016'}}">
+      <view class="baseinfo">
+        <view class='head'>
+          <view class="headimg {{resumeinfo.sex==1?'bg-man':'bg-woman'}}">
+            {{resumeinfo.headimg}}
+          </view>
+          <block >
+            <image class="gender" mode="widthFix" wx:if="{{resumeinfo.sex==1}}" src="../../images/icons/male.png" ></image>
+            <image class="gender" mode="widthFix" wx:else="{{resumeinfo.sex==0}}" src="../../images/icons/female.png" ></image>
+          </block>
+        </view>
+
+        <view class='username'>
+          <text>{{resumeinfo.name}}</text>
+          <text wx:if="{{resumeinfo.sex==1}}">先生</text>
+          <text wx:else="{{resumeinfo.sex==1}}">女士</text>
+        </view>
+        <view class="lastcompany">
+          <text wx:if="{{resumeinfo.lastCompany}}">{{resumeinfo.lastCompany}}</text>
+          <text wx:if="{{resumeinfo.lastPosition}}">{{resumeinfo.lastPosition}}</text>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">工作状态：</text>
+            <text class="line-content" wx:if="{{resumeinfo.workStatus==0}}">在职不想换工作</text>
+            <text class="line-content" wx:if="{{resumeinfo.workStatus==1}}">离职</text>
+            <text class="line-content" wx:if="{{resumeinfo.workStatus==2}}">正在找工作</text>
+            <text class="line-content" wx:if="{{resumeinfo.workStatus==3}}">在职,可以看更好机会</text>
+            <text class="line-content" wx:if="{{resumeinfo.workStatus==4}}">暂时不想找工作</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">工作经验：</text>
+            <text class="line-content">{{resumeinfo.workedYearsMeanly}}</text>
+          </view>
+          <view class="inline">
+            <text class="line-label">所在城市：</text>
+            <text class="line-content">{{resumeinfo.currentArea}}</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">婚姻状况：</text>
+            <block wx:if="{{resumeinfo.marryState}}">
+              <text class="line-content" wx:if="{{resumeinfo.marryState==0}}">未婚</text>
+              <text class="line-content" wx:if="{{resumeinfo.marryState==1}}">已婚</text>
+              <text class="line-content" wx:if="{{resumeinfo.marryState==2}}">离异</text>
+              <text class="line-content" wx:if="{{resumeinfo.marryState==3}}">保密</text>
+            </block>
+            <block wx:else="{{resumeinfo.marryState}}">
+              <text class="line-content">保密</text>
+            </block>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">手机：</text>
+            <text  selectable="true" class="line-content {{islock==1?'yellow':''}}">{{phone}}</text>
+          </view>
+        </view>
+        <view class="line">
+          <view class="inline">
+            <text class="line-label">邮箱：</text>
+            <text selectable="true" class="line-content {{islock==1?'yellow':''}}">{{email}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 求职意向 -->
+      <view class="job-intention resume-box">
+        <view class="title">求职意向</view>
+        <view class="content">
+          <view class='intention'>
+            <text>{{resumeinfo.expectPositions}}</text>
+            <text wx:if="{{resumeinfo.expectIndustries}}"> | {{resumeinfo.expectIndustries}}</text>
+          </view>
+          <view class="require">
+            <text wx:if="{{resumeinfo.jobNature}}">{{resumeinfo.jobNature}}</text>
+            <text wx:if="{{resumeinfo.expectAreas}}">{{resumeinfo.expectAreas}}</text>
+            <text wx:if="{{resumeinfo.expectSalary}}">{{resumeinfo.expectSalary}}</text>
+            <text wx:else="{{resumeinfo.expectSalary}}">面谈</text>
+            <text wx:if="{{resumeinfo.postsTime}}">{{resumeinfo.postsTime}}</text>
+          </view>
+        </view>
+
+      </view>
+      <!-- 自我评价 -->
+      <view class="self-assessment resume-box">
+        <view class="title">自我评价</view>
+        <view class='content'>
+          <view class="text">
+            <text decode="{{true}}">{{resumeinfo.personal}}</text>
+          </view>
+        </view>
+      </view>
+      <!-- 工作经历 -->
+      <view class=" resume-box">
+        <view class="title">工作经历</view>
+        <view class='content' >
+          <repeat for="{{resumeinfo.workExpList}}" key="index" index="index" item="item" wx:if="{{resumeinfo.workExpList}}">
+            <view class="experience">
+            <view class="text-gray">{{item.startDate}}-<text wx:if="{{!item.endDate}}">至今</text><text wx:else="{{!item.endDate}}">{{item.endDate}}</text></view>
+            <view class="text-yellow">{{item.companyName}}</view>
+            <view class="text-gray">{{item.position}}</view>
+            <view class="text">
+              <text decode="{{true}}">{{item.summary}}</text>
+            </view>
+            </view>
+          </repeat>
+
+        </view>
+      </view>
+      <!-- 项目经验 -->
+      <view class="self-assessment resume-box">
+        <view class="title">项目经验</view>
+        <view class='content'>
+          <repeat for="{{resumeinfo.projectExpList}}" key="index" index="index" item="item" wx:if="{{resumeinfo.projectExpList}}">
+            <view class="project">
+              <view class="text-yellow">{{item.name}}</view>
+              <view class="text-gray">{{item.startDate}}-<text wx:if="{{!item.endDate}}">至今</text><text wx:else="{{!item.endDate}}">{{item.endDate}}</text></view>
+              <view class="text">
+                <text decode="{{true}}">{{item.description}}</text>
+              </view>
+            </view>
+          </repeat>
+        </view>
+      </view>
+      <!-- 教育经历 -->
+      <view class="self-assessment resume-box">
+        <view class="title">教育经历</view>
+        <view class='content'>
+          <repeat for="{{resumeinfo.educationExpList}}" key="index" index="index" item="item" wx:if="{{resumeinfo.educationExpList}}">
+            <view class="project">
+              <view class="text-yellow">{{item.schoolName}}</view>
+              <view class="text-gray">{{item.startDate}}-{{item.endDate}}</view>
+              <view class="text education">
+                <text wx:if="{{item.majorName}}">{{item.majorName}}</text>
+                <text wx:if="{{item.education==210}}">博士</text>
+                <text wx:if="{{item.education==201}}">MBA</text>
+                <text wx:if="{{item.education==200}}">研究生</text>
+                <text wx:if="{{item.education==110}}">本科</text>
+                <text wx:if="{{item.education==102}}">专科</text>
+                <text wx:if="{{item.education==101}}">大专</text>
+                <text wx:if="{{item.education==100}}">大学</text>
+                <text wx:if="{{item.education==23}}">中技</text>
+                <text wx:if="{{item.education==22}}">技校</text>
+                <text wx:if="{{item.education==21}}">中专</text>
+                <text wx:if="{{item.education==20}}">高中</text>
+                <text wx:if="{{item.education==10}}">初中</text>
+                <text wx:if="{{item.education==1}}">小学</text>
+              </view>
+            </view>
+          </repeat>
+        </view>
+      </view>
+      <!-- 证书 -->
+      <view class="self-assessment resume-box">
+        <view class="title">证书</view>
+        <view class='content'>
+
+        <repeat for="{{cerdata}}" key="index" index="index" item="item" wx:if="{{cerdata!=''}}">
+          <view class="project">
+            <view class="text-yellow">{{item.school}}</view>
+            <view class="text-gray">{{item.gaintime}} 颁发</view>
+            <view class="text">颁发机构{{item.createby}}</view>
+          </view>
+        </repeat>
+        </view>
+      </view>
+
+  </view>
+  <view class='bottom'>
+    <block wx:if="{{delivery==-1}}">
+    <view class="bottom-opera">
+        <view class="btn-collect" @tap="togglecollect">
+          <image src="../../images/icons/collect_selected.png" mode="widthFix" wx:if="{{resumebase.collectionid}}"/>
+          <image src="../../images/icons/collect.png" mode="widthFix" wx:else/>
+        </view>
+        <view class="btn-box" >
+          <block wx:if="{{inteid=='-1'}}">
+            <view class="contactway" @tap="tocall" wx:if="{{islock}}">电话联系候选人</view>
+            <view class="contactway" @tap="viewcontactinfo" wx:else="{{islock}}">查看联系方式</view>
+          </block>
+          <block wx:else="{{inteid=='-1'}}">
+            <view class="operabtnbox">
+              <view class='redblockbtn' @tap="inadequacy" wx:if="{{status==0}}">不合适</view>
+              <view class='redbtn' @tap="interviewConfirm" wx:if="{{status==0}}" >确认约面</view>
+              <view class='graybtn' wx:if="{{status==1}}">约面中…</view>
+              <view class='redbtn' wx:if="{{status==2}}">已约面<text wx:if="{{interviewtime}}">（{{interviewtime}}）</text></view>
+              <view class='redbtn' wx:if="{{status==3}}">候选人已成功到面</view>
+              <view class='graybtn' wx:if="{{status==4}}">未到面</view>
+              <view class='graybtn' wx:if="{{status==5}}">已标记不合适</view>
+              <view class='redbtn' wx:if="{{status==5}}" @tap="interviewConfirm">重新约面</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+    <view wx:else="{{delivery==-1}}" class="oldbtnbox">
+      <view class='o_yellow' wx:if="{{delivery==1}}" @tap="invite">面试邀约</view>
+      <view class='o_red' wx:if="{{delivery==2}}" @tap="sign" data-status="4">不合适</view>
+      <view class='o_yellow' wx:if="{{delivery==2}}" @tap="sign" data-status="1">合适</view>
+      <view class='o_gray' wx:if="{{delivery==3}}">已邀约</view>
+      <view class='o_gray' wx:if="{{delivery==4}}">不合适</view>
+    </view>
+
+  </view>
+</block>
+<block wx:else="{{resumeStatus}}">
+        <defaultpage img="/images/icons/no_delivery.png" :text.sync="warningWord" >
+        </defaultpage>
+      </block>
+</template>
+
+<script>
+import wepy from 'wepy';
+import api from '../../api/api';
+import tip from '../../utils/tip';
+import utils from '../../utils/utils';
+import {makePy} from '../../utils/pinying'
+
+import Defaultpage from '../../components/defaultpage';
+
+export default class resumePage extends wepy.page {
+  config = {
+      navigationBarTitleText: '简历详情',
+  }
+
+  data = {
+    resumebase: {},      // 基本信息
+    workdata:[],
+    prodata:[],
+    edudata:[],
+    cerdata:[],
+    iscollection:0,
+    token: '',
+    tokenKey: '',
+    headimg: '',
+    resumeid: '',
+    operateShow: false,
+    sexStatus: false,
+    tempPortraitFilePath: '',
+    headimgStatus:false,
+    resource:'H0016',
+    phone:'',
+    email:'',
+    inteid:-1,
+    status:-1,
+    islock:0,
+    collect:true,
+    delivery:0,
+    resumeinfo:{},
+    resumeStatus:false,
+    warningWord:'暂无数据',
+    refresh:false,
+    interviewtime:'',
+    deliverid:'', //投递id
+    jobid:'', //投递职位id
+    jobname:'', //投递职位名称
+    puserid:'', //求职者id
+  }
+  components = {
+      defaultpage:Defaultpage,
+  }
+  onLoad(options) {
+    // console.log(options.resource)
+    const that = this;
+    that.resumeStatus=false;
+    that.resumeid = options.resumeid.toString();
+    that.jobid = options.jobid || '';
+    that.jobname = options.jobname || '';
+    that.puserid =  options.puserid || '';
+    that.deliverid  = options.deliverid || ''
+    // that.iscollection = options.iscollection==1?1:0;
+    that.inteid = typeof(options.inteid)=='undefined'?'-1':options.inteid;
+    that.resource = options.resource==2?'JZ00002':'H0016';
+    that.delivery=options.delivery==undefined?-1:options.delivery;
+    that.status=options.status>=0?options.status:that.status;
+    console.log(options.time)
+    that.interviewtime=typeof(options.time)!='undefined'?options.time:'';
+    that.$apply();
+    wx.getStorage({
+        key: 'loginData',
+        success: function(res) {
+            that.token = res.data.token;
+            that.tokenKey = res.data.tokenKey;
+            that.$apply();
+            // 获取简历信息
+            that.getPinfodetail()
+        },fail:function(){
+          utils.toLogin();
+        }
+    })
+  }
+  onShow(){
+    var that=this
+    // 获取登录信息
+    wx.getStorage({
+        key: 'loginData',
+        success: function(res) {
+            that.token = res.data.token;
+            that.tokenKey = res.data.tokenKey;
+            that.$apply();
+            // 获取简历信息
+            that.getPinfodetail()
+        },
+        fail:function(json){
+          tip.error(json.data.returnMsg);
+        }
+    })
+  }
+  // 处理<br>换行
+  linefeed(arr,attr){
+    var reg=new RegExp("<br>","g");
+    var newarr = arr.map(function(obj,index) {
+          switch(attr){
+             case "workremark":
+               obj.workremark=obj.workremark.replace(reg,"\r\n");//添加id属性
+               break;
+             case "projectremark":
+               obj.projectremark=obj.projectremark.replace(reg,"\r\n");//添加id属性
+             break;
+           }
+          return obj;
+    });
+    return newarr
+  }
+  // 简历不合适
+  signinadequacy() {
+    const that = this;
+    wx.showLoading({
+      title: '加载中',
+    })
+    api.interviewConfirm({
+      query: {
+        head: {
+          "transcode": "H0079",
+          "type": "h"
+        },
+        data: {
+          "token": that.token,
+          "tokenKey": that.tokenKey,
+          "status":'2',
+          "inteid":that.inteid,
+          "interviewdate":'',
+          "interviewtime":'',
+          "address":'',
+          "remarks":'',
+        }
+      }
+    }).then(json=>{
+      wx.hideLoading()
+      that.status='5';
+      that.refresh=true
+      that.$apply();
+    }).catch(json=>{
+      wx.hideLoading()
+      tip.error(json.returnMsg);
+    })
+  };
+  //获取简历信息
+  async getPinfodetail() {
+      const that = this;
+      wx.showLoading({
+          title: '加载中',
+      })
+      if(that.resource=='H0016'){
+        api.getPinfodetail({
+            query: {
+                head: {
+                    "transcode": 'H0016',
+                    "type": "h"
+                },
+                data: {
+                    "token": that.token,
+                    "tokenKey": that.tokenKey,
+                    "resumeid":that.resumeid
+                }
+            }
+        }).then(json=>{
+          wx.hideLoading()
+          that.resumeStatus=true
+          const {resumebase,workdata,prodata,edudata,cerdata} = json.data
+          that.resumebase=resumebase
+          that.resumebase.selfRemark=resumebase.selfRemark.replace(new RegExp("<br>","g"),"\r\n")
+          that.workdata =workdata=="[]"?[]:that.linefeed(JSON.parse(workdata),'workremark')
+          that.prodata=prodata!=''?that.linefeed(JSON.parse(prodata),'projectremark'):[]
+          that.edudata=edudata=="[]"?[]:JSON.parse(edudata)
+          that.cerdata=cerdata=="[]"?[]:JSON.parse(cerdata)
+          that.email=resumebase.email
+          that.islock=resumebase.islock==1?true:false
+          that.phone=resumebase.phone
+          that.$apply()
+        }).catch(err=>{
+          wx.hideLoading()
+        })
+      }else{
+        const json = await api.getWResumeInfo({
+            query: {
+                head: {
+                    "transcode": 'JZ00002',
+                    "type": "h"
+                },
+                data: {
+                    "token": that.token,
+                    "tokenKey": that.tokenKey,
+                    "resumeid":that.resumeid
+                }
+            }
+        }).then(json=>{
+          wx.hideLoading()
+          that.$apply();
+          if(json.data.data.resumeinfo){
+            that.resumeStatus=true
+            var resumeinfo=json.data.data.resumeinfo
+            resumeinfo.headimg=makePy(resumeinfo.name)
+            that.islock=resumeinfo.isView
+            resumeinfo.workExpList=resumeinfo.workExpList.map(function(obj,index){
+              obj.startDate=obj.startDate=== null?obj.startDate:utils.getFormat('yyyy/MM',obj.startDate);
+              obj.endDate=obj.endDate=== null?obj.endDate:utils.getFormat('yyyy/MM',obj.endDate);
+              return obj;
+            })
+            resumeinfo.educationExpList=resumeinfo.educationExpList.map(function(obj,index){
+              obj.startDate=obj.startDate=== null?obj.startDate:utils.getFormat('yyyy/MM',obj.startDate);
+              obj.endDate=obj.endDate=== null?obj.endDate:utils.getFormat('yyyy/MM',obj.endDate);
+              return obj;
+            })
+            resumeinfo.projectExpList=resumeinfo.projectExpList.map(function(obj,index){
+              obj.startDate=obj.startDate=== null?obj.startDate:utils.getFormat('yyyy/MM',obj.startDate);
+              obj.endDate=obj.endDate=== null?obj.endDate:utils.getFormat('yyyy/MM',obj.endDate);
+              return obj;
+            })
+            that.resumeinfo=  resumeinfo
+
+          }else{
+            that.resumeStatus=false
+            that.warningWord='数据飞到外太空了……'
+          }
+        }).catch(err=>{
+          wx.hideLoading()
+        })
+      }
+
+  };
+  //查看联系方式
+  async getLockresume() {
+      wx.showLoading({
+          title: '加载中',
+      })
+      const that = this;
+      const json = await api.getLockresume({
+          query: {
+            head: {
+                "transcode": 'H0041',
+                "type": "h"
+            },
+            data: {
+                "token": that.token,
+                "tokenKey": that.tokenKey,
+                "resumeid":that.resumeid
+            }
+          }
+      }).then(json=>{
+        that.islock=true
+        that.phone=json.data.data.phone
+        that.email=json.data.data.email
+        wx.hideLoading()
+        that.$apply();
+      }).catch(err=>{
+        wx.hideLoading()
+      })
+
+  }
+
+  async getResumedown() {
+    wx.showLoading({
+        title: '加载中',
+    })
+    const that = this;
+    const json = await api.getResumedown({
+        query: {
+            head: {
+                "transcode": 'JZ00003',
+                "type": "h"
+            },
+            data: {
+                "token": that.token,
+                "tokenKey": that.tokenKey,
+                "resumeid":that.resumeid
+            }
+        }
+    }).then(json=>{
+      if(json.data.data.contactinfo==null){
+        tip.error(json.data.data.msg);
+        return false
+      }
+      that.islock=true
+      that.phone=json.data.data.contactinfo.mobile
+      that.email=json.data.data.contactinfo.email
+    })
+    wx.hideLoading()
+    that.$apply();
+  }
+  methods = {
+      invite(){
+        const {jobid,jobname,resumeid,puserid} = this
+        wepy.navigateTo({
+          url:'/pages/personal/interview?jobid='+jobid+'&jobname='+jobname+'&resumeid='+resumeid+'&puserid='+puserid,
+        })
+      },
+      inadequacy(){
+        this.signinadequacy()
+      },
+      sign(e){
+        var status = e.currentTarget.dataset.status
+        this.changeStatus(status)
+        this.$apply()
+      },
+      togglecollect(){
+        this.operCollect()
+      },
+      interviewConfirm(){
+        var that =this
+        wepy.navigateTo({
+         url:'../agreeinterview/agreeinterview?inteid='+that.inteid
+        })
+      },
+      tocall: function(){
+        wx.makePhoneCall({
+          phoneNumber: this.phone
+        })
+      },
+      viewcontactinfo(){
+        if(this.resource=='H0016'){
+          this.getLockresume()
+        }else{
+          this.getResumedown()
+        }
+      }
+    };
+    //添加&&取消收藏
+    operCollect() {
+        //参数page:当前页,参数preset是否刷新页面（操作上拉刷新）
+      const that = this;
+      wx.showLoading({
+          title: '加载中',
+      })
+      api.collectResume({
+        query: {
+          head: {
+            "transcode": "H0018",
+            "type": "h"
+          },
+          data: {
+            "token": that.token,
+            "tokenKey": that.tokenKey,
+            "resumeid":that.resumeid,
+            "collectionid":that.resumebase.collectionid+'',
+            "resource":'1'
+          }
+        }
+      }).then(res=>{
+        wx.hideLoading()
+        if(res.data.returnCode=="AAAAAAA"){
+          let tips = that.resumebase.collectionid?'取消收藏':'收藏成功'
+          tip.error(tips)
+          that.resumebase.collectionid = res.data.collectionid?res.data.collectionid:''
+          that.$apply()
+        }
+      }).catch(json=>{
+        wx.hideLoading()
+        tip.error('收藏失败')
+      })
+
+    }
+    async changeStatus(status) {
+        //参数page:当前页,参数preset是否刷新页面（操作上拉刷新）
+        const that = this;
+        const json = await api.changeStatus({
+            query: {
+                head: {
+                    "transcode": "H0075",
+                    "type": "h"
+                },
+                data: {
+                    "token": that.token,
+                    "tokenKey": that.tokenKey,
+                    "id":that.deliverid,
+                    "type":status,
+                }
+            }
+        }).then(json=>{
+          that.delivery=status
+        }).catch(json=>{
+          tip.error('操作失败')
+        })
+        that.$apply();
+
+    }
+    interview(){
+      let type ='3'
+      this.delivery = type
+      this.changeStatus(type)
+      this.$apply()
+    }
+    onShow(){
+      this.status=wepy.$instance.globalData.interview
+      this.$apply()
+    }
+    onUnload(){
+      var that=this
+      var pages = getCurrentPages(); // 当前页面
+      var beforePage = pages[pages.length - 2]; // 前一个页面
+      if(that.refresh){
+          beforePage.pageDataChange(); // 执行前一个页面的onLoad方法
+      }
+    }
+}
+</script>

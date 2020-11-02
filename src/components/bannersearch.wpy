@@ -1,0 +1,113 @@
+<style lang='scss'>
+  .banner-search-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .banner-container{
+    swiper {
+      height: 300rpx;
+      width: 100%;
+      image {
+        height: 300rpx;
+        width: 100%;
+      }
+    }
+  }
+  .search-read-only {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 25rpx 76rpx;
+    .inner-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 auto;
+        padding: 20rpx 80rpx;
+        background-color: rgba(0, 0, 0, 0.4);
+        border-radius: 60rpx;
+    }
+    .search-img {
+        margin-right: 12rpx;
+    }
+    .hint-text {
+        width: 100%;
+        font-size: 24rpx;
+        color: #d1d1d1;
+    }
+ }
+</style>
+
+<template>
+    <view class='banner-search-container'>
+        <view class='banner-container'>
+            <swiper indicator-dots='true'
+                    autoplay='true'
+            >
+                <repeat for="{{bannerlist}}" key="index" item="item">
+                    <swiper-item>
+                        <image src='{{item}}' mode="aspectFill"></image>
+                    </swiper-item>
+                </repeat>
+            </swiper>
+        </view>
+        <view class='search-read-only'>
+            <navigator class="inner-container" url="/pages/search/search">
+                <icon class="search-img" type="search" color="#fff" size="14"></icon>
+                <text class="hint-text">请输入关键词，如职位名/公司名等</text>
+            </navigator>
+        </view>
+    </view>
+</template>
+
+<script>
+  import wepy from 'wepy';  
+  import api from '../api/api';
+
+  export default class BannerSearch extends wepy.component {
+
+        data={
+            bannerlist: {}
+        }
+
+        onLoad(options){
+            this.getMobileHomeBanner();
+        }  
+
+        //事件处理函数(集中保存在methods对象中)
+        methods = {
+            onBindFocus (event) {
+            }
+        };
+
+        async getMobileHomeBanner(startIndex, pageNum){//获取轮播广告图
+            const that = this;
+            const json = await api.getMobileHomeBanner({
+                query: {
+                        "head": {
+                            "transcode": "F00008",
+                            "type": "h"
+                    },
+                        "data": {
+                            "startIndex": startIndex || "0",
+                            "pageNum": pageNum || "4"
+                    }
+                }
+            })
+            if(json.data.returnCode == "AAAAAAA"){
+                that.bannerlist = json.data.data.map((item, index) => {
+                    let imglist = [];
+                    imglist.push(item.image_url);
+                    return imglist;
+                });
+                that.$apply();
+            } else {
+                tip.error(json.data.returnMsg);
+            }
+        }
+  }
+</script>
+
+

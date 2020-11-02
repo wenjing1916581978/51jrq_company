@@ -1,0 +1,114 @@
+<style>
+  @import "./styles/common.wxss";
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+import {
+      LOGIN_INFO
+} from './utils/constants';
+import api from './api/api';
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      // 'pages/personal/com_baseinfo',
+      // 'pages/delivery/delivery',
+      'pages/joblist/joblist',
+      'pages/recommend/recommend',
+      'pages/recommend/jobseeker',
+      'pages/recommend/interview',
+      'pages/login/login',
+      'pages/personal/personal',
+      'pages/delivery/delivery',
+      'pages/personal/release_posi',
+      'pages/personal/com_info',
+      'pages/personal/collection',
+      'pages/personal/posi_manage',
+      'pages/personal/base_edit',
+      'pages/personal/resume',
+      'pages/search/search',
+      'pages/personal/download',
+      'pages/personal/interview',
+      'pages/personal/com_baseinfo',
+      'pages/jobdetails/jobdetails',
+      'pages/agreeinterview/agreeinterview',
+      'pages/personal/viewhomepage',
+      'pages/personal/welfare',
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fcfcfc',
+      navigationBarTitleText: '51金融圈',
+      navigationBarTextStyle: 'black',
+      enablePullDownRefresh: true
+    },
+    tabBar: {
+      "color": "#a0a0a0",
+      "selectedColor": "#FFA315",
+      "backgroundColor": "#ffffff",
+      list: [{
+        'pagePath': 'pages/joblist/joblist',
+        'iconPath': 'images/icons/main.png',
+        'selectedIconPath': 'images/icons/main_selected.png',
+        'text':'主页'
+      }, {
+        'pagePath': 'pages/delivery/delivery',
+        'iconPath': 'images/icons/news.png',
+        'selectedIconPath': 'images/icons/news_selected.png',
+        'text':'投递动态'
+      }, {
+        'pagePath': 'pages/personal/personal',
+        'iconPath': 'images/icons/my.png',
+        'selectedIconPath': 'images/icons/my_selected.png',
+        'text':'我的'
+      }]
+    },
+    "navigateToMiniProgramAppIdList": [
+      "wxd48d26a8a3f6938f"
+    ]
+  }
+
+  globalData = {
+    userInfo: null,
+    appid: "wxd48d26a8a3f6938f",
+    secret: 'ffd389347ef65447d93b82a332a59aad',
+    access_token: '',
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+  }
+
+  //当小程序初始化完成时，会触发 onLaunch（全局只触发一次）
+  onLaunch(options) {
+    let loginInfo =  wx.getStorageSync(LOGIN_INFO) || {};
+  }
+
+  async getAccessToken() {
+    const that = this;
+    const json = await api.getAccessToken({
+      method: 'GET'
+    });
+    if (json.data.result) {
+      that.globalData.access_token = json.data.access_token;
+    }
+  }
+
+  getUserInfo(cb) {
+    const that = this
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo
+    }
+    wepy.getUserInfo({
+      success (res) {
+        that.globalData.userInfo = res.userInfo
+        cb && cb(res.userInfo)
+      }
+    })
+  }
+
+}
+</script>

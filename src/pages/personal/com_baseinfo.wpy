@@ -1,0 +1,388 @@
+<style lang="scss">
+    .base-edit-container {
+        display: flex;
+        flex-direction: column;
+        .portrait-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40rpx 0 10rpx;
+            .icon-upload {
+                margin-bottom: 10rpx;
+                width: 140rpx;
+                height: 140rpx;
+            }
+            text {
+                font-size: 24rpx;
+                color: #a0a0a0;
+            }
+        }
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            padding: 0 40rpx;
+            .list-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 28rpx;
+                color: #888888;
+                height: 100rpx;
+                border-bottom: #f1f1f1 solid 2rpx;
+                .label {
+                    min-width: 120rpx;
+                    color: #353535;
+                }
+            }
+            .input-area {
+                input {
+                    text-align: right;
+                    color: #888888;
+                    width: 100%;
+                }
+                .phcolor {
+                    color: #888888;
+                    text-align: right;
+                }
+            }
+        }
+        .work-content {
+            height: 80rpx;
+            font-size: 28rpx;
+            line-height: 80rpx;
+            margin-left: 40rpx;
+            color: #353535;
+        }
+        .big {
+            background: white;
+            .section {
+                margin: auto 40rpx;
+                textarea {
+                    padding: 30rpx auto;
+                    width: 100%;
+                    font-size: 28rpx;
+                    color: #888888;
+                }
+            }
+        }
+        .btn-box {
+            margin: 50rpx auto;
+            width:586rpx;
+            height:80rpx;
+            .save-btn {
+                width:586rpx;
+                height:80rpx;
+                text-align:center;
+                font-size:36rpx;
+                color:#fff;
+                background-color:#ff9e00;
+            }
+        }
+    }
+    .textarea{
+      padding:20rpx 0;
+    }
+</style>
+
+<template>
+  <view class="base-edit-container">
+    <block wx:if="{{(initarr[0]&&initarr[1]&&initarr[2]&&initarr[3]&&content=='1' || content=='2')&&init}}">
+      <block wx:if="{{content==1}}">
+        <view class="portrait-box" @tap.stop="changePortrait">
+            <image mode="aspectFill" wx:if="{{form.mlogo}}" class="icon-upload" src="{{isbase64?'data:image/png;base64,'+form.mlogo:form.mlogo}}"></image>
+            <image mode="aspectFill" wx:else class="icon-upload" src="/images/icons/upload_head.png"></image>
+            <text>点击更换logo</text>
+        </view>
+        <view class="list-container">
+          <view class="list-item">
+              <text class="label">公司名称</text>
+              <view class="input-area">
+                  <input bindinput="inputChange" placeholder-class="phcolor" type="text" data-name="corpname" value="{{form.corpname}}" placeholder="请填写" />
+              </view>
+          </view>
+          <view class="list-item">
+              <text class="label">所在地</text>
+              <picker data-name="city" data-current="0" value="{{dictionaryindex[0]}}" range-key="value" bindchange="pickerChange" range="{{dictionaryarr[0]}}">
+                  <text wx:if="{{form.city}}">{{form.city}}</text>
+                  <text wx:else>请选择</text>
+              </picker>
+          </view>
+          <view class="list-item">
+              <text class="label">公司性质</text>
+              <picker data-name="nature" data-current="1" value="{{dictionaryindex[1]}}" range-key="value" bindchange="pickerChange" range="{{dictionaryarr[1]}}">
+                  <text wx:if="{{form.nature}}">{{form.nature}}</text>
+                  <text wx:else>请选择</text>
+              </picker>
+          </view>
+          <view class="list-item">
+              <text class="label">公司规模</text>
+              <picker data-name="scope" data-current="2" value="{{dictionaryindex[2]}}" range-key="value" bindchange="pickerChange" range="{{dictionaryarr[2]}}">
+                  <text wx:if="{{form.scope}}">{{form.scope}}</text>
+                  <text wx:else>请选择</text>
+              </picker>
+          </view>
+          <view class="list-item">
+              <text class="label">行业</text>
+              <picker data-name="industry" data-current="2" value="{{dictionaryindex[2]}}" range-key="value" bindchange="pickerChange" range="{{dictionaryarr[2]}}">
+                  <text wx:if="{{form.industry}}">{{form.industry}}</text>
+                  <text wx:else>请选择</text>
+              </picker>
+          </view>
+          <view class="list-item">
+              <text class="label">公司地址</text>
+              <view class="input-area">
+                <input bindinput="inputChange" placeholder-class="phcolor" type="text" data-name="address" value="{{form.address}}" placeholder="请填写" />
+              </view>
+          </view>
+          <view class="list-item">
+              <text class="label">公司电话</text>
+              <view class="input-area">
+                <input bindinput="inputChange" placeholder-class="phcolor" type="text" data-name="phone" value="{{form.phone}}" placeholder="请填写" maxlength="11" />
+              </view>
+          </view>
+
+        </view>
+      </block>
+      <block wx:if="{{content==2}}">
+        <view class="big">
+            <view class="section">
+                <textarea maxlength="200" class="textarea" data-name="description" bindinput="inputChange" value="{{form.description}}" placeholder="请输入公司介绍（200字以内）" placeholder-style="color:#888888;font-size:28rpx;"  />
+            </view>
+        </view>
+      </block>
+      <view class="btn-box">
+          <button class="save-btn" @tap="baseEditSubmit">保存</button>
+      </view>
+    </block>
+
+    <!-- 初始化加载 S -->
+    <loading wx:else></loading>
+    <!-- 初始化加载 S -->
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+import api from '../../api/api';
+import tip from '../../utils/tip';
+import utils from '../../utils/utils';
+import {LOGIN_INFO} from '../../utils/constants';
+import Loading from "../../components/loading";
+export default class BaseEdit extends wepy.page {
+
+   data = {
+      content:'1',
+      logininfo:null,
+      form:{
+        corpid:'',
+        corpname:'',
+        city:'',
+        nature:'',
+        scope:'',
+        industry:'',
+        address:'',
+        email:'',
+        site:'',
+        description:'',
+        mlogo:'',
+      },
+      isbase64:false,
+      dictionaryarr:[],
+      dictionaryindex:[0,0,0,0], //数据字典数组选中index
+      initarr:[false,false,false,false], //数据字典初始化
+      init:false, //获取工作详情初始化
+   }
+
+   components = {
+     loading:Loading
+   }
+
+
+   onLoad(options){
+      const that = this;
+      this.content=options.content
+      this.logininfo =  wx.getStorageSync(LOGIN_INFO) || {};
+      this.getData();
+      if(options.content==2){
+        wx.setNavigationBarTitle({
+          title: '公司简介'
+        })
+      }else{
+
+        const arr =  ["DICT_COMP_CITY","DICT_COMP_NATURE","DICT_COMP_SCOPE","DICT_COMP_INDUSTRY"]
+        for (var i = 0; i < arr.length; i++) {
+          that.getDict(arr[i],i)
+        }
+      }
+
+
+
+   }
+
+   methods = {
+      inputChange(e){
+          const { form }=this
+          const name = e.currentTarget.dataset.name
+          form[name] = e.detail.value;
+          this.$apply();
+        },
+        pickerChange(e){
+          const that = this
+          let index =  parseInt(e.detail.value)
+          const {current,name} = e.currentTarget.dataset
+          let cur = parseInt(current)
+          that.form[name] = that.dictionaryarr[cur][index].label
+          that.dictionaryindex[cur] = index
+          that.$apply()
+        },
+       changePortrait(){
+           const that = this;
+           that.choosePortrait();
+       },
+       baseEditSubmit(e){
+         const {form,content} = this
+         if(content=='1'){
+           if(form.corpname==''){
+             tip.error('公司名不为空')
+             return false
+           }else if(form.city==''){
+             tip.error('请选择所在城市')
+             return false
+           }else if(form.nature==''){
+             tip.error('请选择公司性质')
+             return false
+           }else if(form.scope==''){
+             tip.error('请选择公司规模')
+             return false
+           }else if(form.address==''){
+             tip.error('公司地址不为空')
+             return false
+           }
+         }else{
+           if(form.description==''){
+             tip.error('公司简介不为空')
+             return false
+           }
+         }
+
+         this.changeCompanyinfo()
+       }
+   }
+
+    choosePortrait(event) {
+        const that = this;
+        wx.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],     // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'],        // 可以指定来源是相册还是相机，默认二者都有
+            success(res) {
+                if(res.tempFiles[0].size>1000000){
+                    tip.error("图片大小超出限制");
+                    return;
+                }
+                console.log(res.tempFilePaths[0])
+                that.urlTobase64(that, res.tempFilePaths[0])
+            },
+            fail(){
+                console.log(`获取图片失败`)
+            }
+        })
+
+    }
+    urlTobase64(that,url){
+        wx.getFileSystemManager().readFile({
+          filePath: url, //选择图片返回的相对路径
+          encoding: 'base64', //编码格式
+          success: res => { //成功的回调
+            that.form.mlogo=res.data
+            that.isbase64 = true
+            that.$apply()
+          }
+        })
+    }
+
+   //修改公司信息
+    async changeCompanyinfo() {
+        wx.showLoading({
+            title: '加载中',
+        })
+        const that = this;
+        const {form,logininfo} = that
+        let obj = Object.assign(form,logininfo)
+        obj.corpid = obj.corpid.toString()
+        await api.changeInfo({
+            query: {
+                head:{
+                    type: "h",
+                    transcode: "H0004",
+                },
+                data:obj
+            }
+        }).then(json => {
+          tip.success("操作成功");
+          wx.navigateBack({
+           delta:1
+          })
+        }).catch(json=>{
+          tip.error(json.data.returnMsg);
+        })
+        wx.hideLoading()
+    }
+
+    //获取公司信息
+    async getData() {
+        const that = this;
+        const {logininfo,form} = that
+        await api.getCompanyInfo({
+            query: {
+              head: {
+                "transcode": "H0014",
+                "type": "h"
+              },
+              data: {
+                "tokenKey": logininfo.tokenKey,
+                "token": logininfo.token,
+              }
+            }
+        }).then(res=>{
+          const {returnCode,data,mlogo} = res.data
+          that.init = true
+          if(mlogo) that.form.mlogo = mlogo
+          for(var key in form){
+            if(data[key]) that.form[key] = data[key]
+          }
+          that.$apply();
+        }).catch(json=>{
+          tip.error(json.data.returnMsg);
+        })
+    }
+    //获取数据字典
+    getDict(code,i) {
+      const that = this
+      api.getDictData({
+        query: {
+          head: {
+            "transcode": "DC001",
+            "type": "h"
+          },
+          data: {
+            "groupcode": code,
+            "selAll": "false"
+          }
+        }
+      }).then(res=>{
+        if(res.data.returnCode=="AAAAAAA"){
+          let list = res.data.data
+          that.dictionaryarr[i] = list
+          that.initarr[i] = true
+          that.$apply()
+        }
+      }).catch(er=>{
+        that.initarr[i] = true
+        that.$apply()
+      })
+    }
+
+}
+</script>
