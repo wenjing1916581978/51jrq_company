@@ -3,9 +3,9 @@ import {
 } from '../utils/wxrequest';
 
 // const apimall = 'http://192.168.1.242:8083';
-const apimall = 'http://192.168.1.251:6688';
+// const apimall = 'http://192.168.1.251:6688';
 
-// const apimall = 'https://m.51jrq.com';
+const apimall = 'https://m.51jrq.com';
 const apiGps = 'https://apis.map.qq.com/ws/geocoder/v1';
 
 // 用户登录

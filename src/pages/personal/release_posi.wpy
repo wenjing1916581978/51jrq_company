@@ -227,6 +227,7 @@ radio .wx-radio-input.wx-radio-input-checked::before{
 
       config = {
         navigationBarTitleText: '基本信息',
+        enablePullDownRefresh:false,
       }
 
       components = {

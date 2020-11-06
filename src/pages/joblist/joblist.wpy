@@ -181,7 +181,7 @@
             <!--没有职位的话 job-no-->
             <view>
               <view class="job-num {{jobsum!=0?'job-have':'job-no' }}">
-                <text  wx:if="{{jobsum!=0}}">{{jobsum}}个职位发布中</text>
+                <text  wx:if="{{jobsum!=0}}">{{joblist.length}}个职位发布中</text>
                 <text wx:else>暂无职位发布</text>
 
               </view>

@@ -101,6 +101,8 @@ import api from '../../api/api';
 import tip from '../../utils/tip';
 import utils from'../../utils/utils';
 import BottomLoadMore from "../../components/bottomloadmore";
+import {LOGIN_INFO} from '../../utils/constants';
+
 
 export default class DeliveryPage extends wepy.page {
     config = {
@@ -115,28 +117,17 @@ export default class DeliveryPage extends wepy.page {
         showLoading: false,
         totalPage: 0,    //总数
         currentPage: 1,
-        token:'',
-        tokenKey:''
+        loginInfo:null
     }
 
     components = {
         bottomloadmore: BottomLoadMore
     };
-    onLoad() {
-
-        // 获取登录信息
-        const that = this;
-        wx.getStorage({
-            key: 'loginData',
-            success: function(res) {
-                that.token = res.data.token;
-                that.tokenKey = res.data.tokenKey;
-                that.$apply();
-                // 获取已投递职位
-                that.getCollectJob(that._num)
-            }
-        })
-
+    onShow(){
+      const that = this;
+      this.loginInfo =  wx.getStorageSync(LOGIN_INFO) || {};
+      that.$apply()
+      that.getCollectJob(that._num)
     }
 
     methods = {
@@ -174,6 +165,7 @@ export default class DeliveryPage extends wepy.page {
             title: '加载中',
         })
         const that = this;
+        const {loginInfo} = that
         await api.getJobList({
             query: {
                 head: {
@@ -181,8 +173,8 @@ export default class DeliveryPage extends wepy.page {
                     "type": "h"
                 },
                 data: {
-                    "token": that.token,
-                    "tokenKey": that.tokenKey
+                    "token": loginInfo.token || '',
+                    "tokenKey": loginInfo.tokenKey || ''
                 }
             }
         }).then(json=>{
